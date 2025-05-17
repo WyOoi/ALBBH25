@@ -70,9 +70,9 @@ export default function Navbar() {
           
           {/* Desktop menu */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
-            <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+            {/* <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
               {t("nav.dashboard")}
-            </Link>
+            </Link> */}
             <Link href="/chatbot" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
               {t("nav.chatbot")}
             </Link>
@@ -173,9 +173,9 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            <Link href="/dashboard" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
+            {/* <Link href="/dashboard" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
               {t("nav.dashboard")}
-            </Link>
+            </Link> */}
             <Link href="/chatbot" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
               {t("nav.chatbot")}
             </Link>
