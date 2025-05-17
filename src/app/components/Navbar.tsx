@@ -68,6 +68,9 @@ export default function Navbar() {
             <Link href="/note" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
               {t("nav.note")}
             </Link>
+            <Link href="/study-plan" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+              {t("nav.study_plan")}
+            </Link>
             <Link href="/login" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
               {t("nav.login")}
             </Link>
@@ -167,6 +170,9 @@ export default function Navbar() {
             </Link>
             <Link href="/note" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
               {t("nav.note")}
+            </Link>
+            <Link href="/study-plan" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
+              {t("nav.study_plan")}
             </Link>
             <Link href="/login" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
               {t("nav.login")}

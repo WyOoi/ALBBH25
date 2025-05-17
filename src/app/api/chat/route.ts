@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
+// WARNING: Hardcoding API keys is not recommended due to security risks.
+// It is better to use environment variables (.env.local).
+const HARDCODED_API_KEY = "sk-6bc7400b50e84aafa5b1385e7690d6cb"; // Replace with your actual API key
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -8,9 +12,18 @@ export async function POST(req: Request) {
 
     // Initialize the OpenAI client with DashScope configuration
     const openai = new OpenAI({
-      apiKey: process.env.DASHSCOPE_API_KEY || 'your_api_key_here', // Replace with your actual API key if not using env vars
+      apiKey: HARDCODED_API_KEY, // Using the hardcoded API key
       baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
     });
+
+    // Check if API key is present (even if hardcoded, it's a basic check)
+    if (!openai.apiKey) {
+      console.error('API_KEY is not set directly in the code.'); // Updated error message
+      return NextResponse.json({ 
+        error: "API key is not configured in the source code.", // Updated error message
+        success: false 
+      }, { status: 500 });
+    }
 
     // Call the Qwen model through DashScope
     const completion = await openai.chat.completions.create({
