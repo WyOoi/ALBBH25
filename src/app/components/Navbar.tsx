@@ -47,6 +47,17 @@ export default function Navbar() {
 
   const currentLanguage = languageOptions.find(option => option.code === language);
 
+  const navigation = [
+    { nameKey: "nav.home", href: "/" },
+    { nameKey: "nav.chatbot", href: "/chatbot" },
+    { nameKey: "nav.note", href: "/note" },
+    { nameKey: "nav.study_plan", href: "/study-plan" },
+  ];
+
+  function classNames(...classes: string[]) {
+    return classes.filter(Boolean).join(' ');
+  }
+
   return (
     <nav className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

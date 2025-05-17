@@ -758,6 +758,11 @@ const translations: TranslationRecord = {
     ms: "Ambil Penilaian Gaya Pembelajaran",
     zh: "进行学习风格评估"
   },
+  "study_plan.retake_assessment_button": {
+    en: "Retake Learning Style Assessment",
+    ms: "Ambil Semula Penilaian Gaya Pembelajaran",
+    zh: "重新进行学习风格评估"
+  },
   "study_plan.assessment_placeholder": {
     en: "Complete the assessment to unlock your personalized learning style insights!",
     ms: "Lengkapkan penilaian untuk membuka wawasan gaya pembelajaran peribadi anda!",
@@ -833,6 +838,25 @@ const translations: TranslationRecord = {
     ms: "Jana Pelan Peribadi Saya",
     zh: "生成我的个性化计划"
   },
+  "study_plan.profile_scores_title": {
+    en: "Your Style Breakdown (Percentages)",
+    ms: "Pecahan Gaya Anda (Peratusan)",
+    zh: "您的风格细分（百分比）"
+  },
+  "study_plan.profile_dominant_style_title": {
+    en: "Your Dominant Learning Style(s)",
+    ms: "Gaya Pembelajaran Dominan Anda",
+    zh: "您的主导学习风格"
+  },
+  "study_plan.last_assessment_date": {
+    en: "Assessment taken on: {date}",
+    ms: "Penilaian diambil pada: {date}",
+    zh: "评估日期: {date}"
+  },
+  "study_plan.style_v": { en: "Visual (V)", ms: "Visual (V)", zh: "视觉 (V)" },
+  "study_plan.style_a": { en: "Auditory (A)", ms: "Auditori (A)", zh: "听觉 (A)" },
+  "study_plan.style_r": { en: "Reading/Writing (R)", ms: "Membaca/Menulis (R)", zh: "读写 (R)" },
+  "study_plan.style_k": { en: "Kinesthetic (K)", ms: "Kinestetik (K)", zh: "动觉 (K)" },
 
   // Learning Style Assessment Page
   "nav.assessment": {
@@ -884,106 +908,337 @@ const translations: TranslationRecord = {
     ms: "Sila jawab semua soalan sebelum mengira profil anda.",
     zh: "在计算您的画像之前，请回答所有问题。"
   },
-  // Questions & Options
-  "assessment.q1.title": { 
-    en: "When you encounter a brand-new topic, you prefer to…", 
-    ms: "Apabila anda menghadapi topik baharu, anda lebih suka…", 
-    zh: "当您遇到一个全新的主题时，您更喜欢…"
+  // Assessment Questions - VARK
+  // Questions 1-10 updated with new text
+  "assessment.question1.text": {
+    en: "When you encounter a brand-new topic, you prefer to…",
+    ms: "MS: When you encounter a brand-new topic, you prefer to…",
+    zh: "ZH: 当你遇到一个全新的课题时，你更喜欢…"
   },
-  "assessment.q1.a": { en: "A. Watch a short infographic or diagram explaining the key ideas.", ms: "A. Tonton infografik ringkas atau rajah yang menerangkan idea utama.", zh: "A. 观看解释关键思想的简短信息图或图表。" },
-  "assessment.q1.b": { en: "B. Listen to a quick podcast or lecture clip about it.", ms: "B. Dengar podcast ringkas atau klip kuliah mengenainya.", zh: "B. 收听关于该主题的简短播客或讲座片段。" },
-  "assessment.q1.c": { en: "C. Read an overview article or textbook chapter.", ms: "C. Baca artikel gambaran keseluruhan atau bab buku teks.", zh: "C. 阅读概述文章或教科书章节。" },
-  "assessment.q1.d": { en: "D. Jump in and do a small hands-on activity or experiment.", ms: "D. Terus lakukan aktiviti praktikal atau eksperimen kecil.", zh: "D. 立即参与并进行小型动手活动或实验。" },
-
-  "assessment.q2.title": { 
-    en: "To remember a set of vocabulary words, you would…", 
-    ms: "Untuk mengingati satu set perkataan kosa kata, anda akan…", 
-    zh: "为了记住一组词汇，您会…"
+  "assessment.question1.options.a": {
+    en: "Watch a short infographic or diagram explaining the key ideas.",
+    ms: "MS: Watch a short infographic or diagram explaining the key ideas.",
+    zh: "ZH: 观看一个简短的信息图或图表来理解关键概念。"
   },
-  "assessment.q2.a": { en: "A. Create a color-coded mind-map linking words and images.", ms: "A. Buat peta minda berkod warna yang menghubungkan perkataan dan imej.", zh: "A. 创建一个颜色编码的思维导图，连接词语和图像。" },
-  "assessment.q2.b": { en: "B. Record yourself saying each word and play it back.", ms: "B. Rakam diri anda menyebut setiap perkataan dan mainkannya semula.", zh: "B. 录下自己说每个单词并回放。" },
-  "assessment.q2.c": { en: "C. Write each word and definition on flashcards.", ms: "C. Tulis setiap perkataan dan definisi pada kad imbas.", zh: "C. 在抽认卡上写下每个单词和定义。" },
-  "assessment.q2.d": { en: "D. Act out each term or use role-play scenarios.", ms: "D. Lakonkan setiap istilah atau gunakan senario main peranan.", zh: "D. 表演出每个术语或使用角色扮演场景。" },
-
-  "assessment.q3.title": { 
-    en: "When solving a complex problem, you like to…", 
-    ms: "Apabila menyelesaikan masalah yang kompleks, anda suka…", 
-    zh: "在解决复杂问题时，您喜欢…"
+  "assessment.question1.options.b": {
+    en: "Listen to a quick podcast or lecture clip about it.",
+    ms: "MS: Listen to a quick podcast or lecture clip about it.",
+    zh: "ZH: 听一段关于该主题的播客或讲座片段。"
   },
-  "assessment.q3.a": { en: "A. Sketch a flowchart or diagram of the steps.", ms: "A. Lakarkan carta alir atau rajah langkah-langkahnya.", zh: "A. 绘制流程图或步骤图。" },
-  "assessment.q3.b": { en: "B. Talk through the problem aloud (to yourself or a study partner).", ms: "B. Bincangkan masalah itu dengan lantang (kepada diri sendiri atau rakan belajar).", zh: "B. 大声讲出问题（对自己或学习伙伴）。" },
-  "assessment.q3.c": { en: "C. Write out each step in a detailed, linear outline.", ms: "C. Tulis setiap langkah dalam rangka linear yang terperinci.", zh: "C. 用详细的线性大纲写出每个步骤。" },
-  "assessment.q3.d": { en: "D. Manipulate physical objects (e.g., blocks, models) to understand it.", ms: "D. Manipulasi objek fizikal (cth., blok, model) untuk memahaminya.", zh: "D. 操作物理对象（例如积木、模型）来理解它。" },
-
-  "assessment.q4.title": { 
-    en: "You absorb new information best when it's presented as…", 
-    ms: "Anda menyerap maklumat baharu dengan terbaik apabila ia dipersembahkan sebagai…", 
-    zh: "当信息以下列方式呈现时，您吸收新信息的效果最好…"
+  "assessment.question1.options.c": {
+    en: "Read an overview article or textbook chapter.",
+    ms: "MS: Read an overview article or textbook chapter.",
+    zh: "ZH: 阅读一篇概述性文章或教科书章节。"
   },
-  "assessment.q4.a": { en: "A. A visually engaging slide or video with animations.", ms: "A. Slaid atau video yang menarik secara visual dengan animasi.", zh: "A. 带有动画的视觉吸引人的幻灯片或视频。" },
-  "assessment.q4.b": { en: "B. A clear verbal explanation or discussion.", ms: "B. Penjelasan lisan atau perbincangan yang jelas.", zh: "B. 清晰的口头解释或讨论。" },
-  "assessment.q4.c": { en: "C. Well-written text with bullet points and summaries.", ms: "C. Teks yang ditulis dengan baik dengan senarai berbutir dan ringkasan.", zh: "C. 文字清晰、带有项目符号和摘要的文本。" },
-  "assessment.q4.d": { en: "D. A simulation, lab exercise, or real-world task.", ms: "D. Simulasi, latihan makmal, atau tugasan dunia sebenar.", zh: "D. 模拟、实验室练习或现实世界任务。" },
-
-  "assessment.q5.title": { 
-    en: "To study for an exam, you would most likely…", 
-    ms: "Untuk belajar bagi peperiksaan, anda kemungkinan besar akan…", 
-    zh: "为了准备考试，您最有可能…"
+  "assessment.question1.options.d": {
+    en: "Jump in and do a small hands-on activity or experiment.",
+    ms: "MS: Jump in and do a small hands-on activity or experiment.",
+    zh: "ZH: 马上动手参与一个小型的实践活动或实验。"
   },
-  "assessment.q5.a": { en: "A. Review annotated diagrams and highlight key areas.", ms: "A. Semak rajah beranotasi dan serlahkan kawasan utama.", zh: "A. 查看带注释的图表并突出显示关键区域。" },
-  "assessment.q5.b": { en: "B. Join a study-group discussion or use audio-recorded notes.", ms: "B. Sertai perbincangan kumpulan belajar atau gunakan nota yang dirakam audio.", zh: "B. 参加学习小组讨论或使用录音笔记。" },
-  "assessment.q5.c": { en: "C. Rewrite your notes in your own words and review them.", ms: "C. Tulis semula nota anda dalam perkataan anda sendiri dan semaknya.", zh: "C. 用自己的话重写笔记并复习。" },
-  "assessment.q5.d": { en: "D. Use practice kits, build models, or do sample problems by hand.", ms: "D. Gunakan kit latihan, bina model, atau selesaikan masalah contoh secara manual.", zh: "D. 使用练习工具包、构建模型或手动做例题。" },
-
-  "assessment.q6.title": { 
-    en: "When you need to clarify a tricky concept, you…", 
-    ms: "Apabila anda perlu menjelaskan konsep yang rumit, anda…", 
-    zh: "当您需要澄清一个棘手的概念时，您会…"
+  "assessment.question2.text": {
+    en: "To remember a set of vocabulary words, you would…",
+    ms: "MS: To remember a set of vocabulary words, you would…",
+    zh: "ZH: 为了记住一组词汇，你会…"
   },
-  "assessment.q6.a": { en: "A. Draw it out on paper or use a concept-map tool.", ms: "A. Lukiskannya di atas kertas atau gunakan alat peta konsep.", zh: "A. 在纸上画出来或使用概念图工具。" },
-  "assessment.q6.b": { en: "B. Call a friend and explain it to them verbally.", ms: "B. Hubungi rakan dan terangkannya kepada mereka secara lisan.", zh: "B.打电话给朋友并口头向他们解释。" },
-  "assessment.q6.c": { en: "C. Look up multiple articles and take written notes.", ms: "C. Cari beberapa artikel dan ambil nota bertulis.", zh: "C. 查阅多篇文章并做书面笔记。" },
-  "assessment.q6.d": { en: "D. Try to recreate the process yourself until it \"clicks.\"", ms: "D. Cuba cipta semula proses itu sendiri sehingga ia 'klik'.", zh: "D. 尝试自己重现该过程，直到\"理解\"为止。" },
-
-  "assessment.q7.title": { 
-    en: "Learning new procedures (e.g., software workflows) is easiest if you…", 
-    ms: "Mempelajari prosedur baharu (cth., aliran kerja perisian) adalah paling mudah jika anda…", 
-    zh: "如果您…学习新程序（例如软件工作流程）最容易："
+  "assessment.question2.options.a": {
+    en: "Create a color-coded mind-map linking words and images.",
+    ms: "MS: Create a color-coded mind-map linking words and images.",
+    zh: "ZH: 创建一个彩色编码的思维导图，将单词与图像联系起来。"
   },
-  "assessment.q7.a": { en: "A. Follow a step-by-step annotated screencast.", ms: "A. Ikuti tayangan skrin beranotasi langkah demi langkah.", zh: "A. 观看带注释的分步截屏视频。" },
-  "assessment.q7.b": { en: "B. Listen to someone narrate the steps as they go.", ms: "B. Dengar seseorang menceritakan langkah-langkah semasa ia berlaku.", zh: "B. 听别人边操作边叙述步骤。" },
-  "assessment.q7.c": { en: "C. Read a written tutorial or manual.", ms: "C. Baca tutorial bertulis atau manual.", zh: "C. 阅读书面教程或手册。" },
-  "assessment.q7.d": { en: "D. Open the software and learn by clicking around.", ms: "D. Buka perisian dan belajar dengan mengklik di sekeliling.", zh: "D. 打开软件并通过实际点击来学习。" },
-
-  "assessment.q8.title": { 
-    en: "When reviewing lecture materials, you prefer…", 
-    ms: "Apabila menyemak bahan kuliah, anda lebih suka…", 
-    zh: "在复习讲座材料时，您更喜欢…"
+  "assessment.question2.options.b": {
+    en: "Record yourself saying each word and play it back.",
+    ms: "MS: Record yourself saying each word and play it back.",
+    zh: "ZH: 录下自己读每个单词的声音并回放。"
   },
-  "assessment.q8.a": { en: "A. Slide-decks with visuals and embedded charts.", ms: "A. Dek slaid dengan visual dan carta terbenam.", zh: "A. 带有视觉效果和嵌入式图表的幻灯片。" },
-  "assessment.q8.b": { en: "B. Audio recordings of the lecture to replay.", ms: "B. Rakaman audio kuliah untuk dimainkan semula.", zh: "B. 可重播的讲座录音。" },
-  "assessment.q8.c": { en: "C. Lecture transcripts or detailed handouts.", ms: "C. Transkrip kuliah atau edaran terperinci.", zh: "C. 讲座文字稿或详细讲义。" },
-  "assessment.q8.d": { en: "D. In-class activities or lab assignments to reinforce.", ms: "D. Aktiviti dalam kelas atau tugasan makmal untuk mengukuhkan.", zh: "D. 通过课堂活动或实验作业来巩固。" },
-
-  "assessment.q9.title": { 
-    en: "To master a foreign-language phrase, you would…", 
-    ms: "Untuk menguasai frasa bahasa asing, anda akan…", 
-    zh: "为了掌握一个外语短语，您会…"
+  "assessment.question2.options.c": {
+    en: "Write each word and definition on flashcards.",
+    ms: "MS: Write each word and definition on flashcards.",
+    zh: "ZH: 在抽认卡上写下每个单词及其定义。"
   },
-  "assessment.q9.a": { en: "A. Watch a short video clip showing someone using it.", ms: "A. Tonton klip video pendek yang menunjukkan seseorang menggunakannya.", zh: "A. 观看某人使用该短语的短视频片段。" },
-  "assessment.q9.b": { en: "B. Repeat it aloud and listen to a native speaker recording.", ms: "B. Ulanginya dengan lantang dan dengar rakaman penutur asli.", zh: "B. 大声重复并听母语人士的录音。" },
-  "assessment.q9.c": { en: "C. Write it down multiple times and read it silently.", ms: "C. Tulisnya berulang kali dan bacanya secara senyap.", zh: "C. 多次写下来并默读。" },
-  "assessment.q9.d": { en: "D. Use it in a real-life conversation or role-play.", ms: "D. Gunakannya dalam perbualan kehidupan sebenar atau main peranan.", zh: "D. 在现实生活对话或角色扮演中使用它。" },
-
-  "assessment.q10.title": { 
-    en: "At the end of a study session, you feel most satisfied if you…", 
-    ms: "Pada akhir sesi belajar, anda berasa paling puas jika anda…", 
-    zh: "在学习结束时，如果您…您会感到最满意："
+  "assessment.question2.options.d": {
+    en: "Act out each term or use role-play scenarios.",
+    ms: "MS: Act out each term or use role-play scenarios.",
+    zh: "ZH: 表演每个术语或使用角色扮演场景。"
   },
-  "assessment.q10.a": { en: "A. See a completed diagram or chart summarizing what you learned.", ms: "A. Lihat rajah atau carta yang lengkap merumuskan apa yang anda pelajari.", zh: "A. 看到一个总结所学内容的完整图表。" },
-  "assessment.q10.b": { en: "B. Can verbally teach the concept back to someone.", ms: "B. Boleh mengajar konsep itu semula kepada seseorang secara lisan.", zh: "B. 能够口头向别人复述这个概念。" },
-  "assessment.q10.c": { en: "C. Have a neatly written set of notes and summaries.", ms: "C. Mempunyai set nota dan ringkasan yang ditulis dengan kemas.", zh: "C. 拥有一套整齐的书面笔记和摘要。" },
-  "assessment.q10.d": { en: "D. Have built something or completed a hands-on exercise.", ms: "D. Telah membina sesuatu atau menyelesaikan latihan praktikal.", zh: "D. 完成了某项构建或动手练习。" }
+  "assessment.question3.text": {
+    en: "When solving a complex problem, you like to…",
+    ms: "MS: When solving a complex problem, you like to…",
+    zh: "ZH: 在解决复杂问题时，你喜欢…"
+  },
+  "assessment.question3.options.a": {
+    en: "Sketch a flowchart or diagram of the steps.",
+    ms: "MS: Sketch a flowchart or diagram of the steps.",
+    zh: "ZH: 画出步骤的流程图或示意图。"
+  },
+  "assessment.question3.options.b": {
+    en: "Talk through the problem aloud (to yourself or a study partner).",
+    ms: "MS: Talk through the problem aloud (to yourself or a study partner).",
+    zh: "ZH: 大声地（对自己或学习伙伴）梳理问题。"
+  },
+  "assessment.question3.options.c": {
+    en: "Write out each step in a detailed, linear outline.",
+    ms: "MS: Write out each step in a detailed, linear outline.",
+    zh: "ZH: 用详细的、线性的提纲写下每个步骤。"
+  },
+  "assessment.question3.options.d": {
+    en: "Manipulate physical objects (e.g., blocks, models) to understand it.",
+    ms: "MS: Manipulate physical objects (e.g., blocks, models) to understand it.",
+    zh: "ZH: 操作实物（例如积木、模型）来理解它。"
+  },
+  "assessment.question4.text": {
+    en: "You absorb new information best when it's presented as…",
+    ms: "MS: You absorb new information best when it's presented as…",
+    zh: "ZH: 当信息以下列方式呈现时，你吸收得最好…"
+  },
+  "assessment.question4.options.a": {
+    en: "A visually engaging slide or video with animations.",
+    ms: "MS: A visually engaging slide or video with animations.",
+    zh: "ZH: 带有动画的、视觉上吸引人的幻灯片或视频。"
+  },
+  "assessment.question4.options.b": {
+    en: "A clear verbal explanation or discussion.",
+    ms: "MS: A clear verbal explanation or discussion.",
+    zh: "ZH: 清晰的口头解释或讨论。"
+  },
+  "assessment.question4.options.c": {
+    en: "Well-written text with bullet points and summaries.",
+    ms: "MS: Well-written text with bullet points and summaries.",
+    zh: "ZH: 包含要点和摘要的、书写良好的文本。"
+  },
+  "assessment.question4.options.d": {
+    en: "A simulation, lab exercise, or real-world task.",
+    ms: "MS: A simulation, lab exercise, or real-world task.",
+    zh: "ZH: 模拟、实验练习或真实世界的任务。"
+  },
+  "assessment.question5.text": {
+    en: "To study for an exam, you would most likely…",
+    ms: "MS: To study for an exam, you would most likely…",
+    zh: "ZH: 为了准备考试，你最有可能…"
+  },
+  "assessment.question5.options.a": {
+    en: "Review annotated diagrams and highlight key areas.",
+    ms: "MS: Review annotated diagrams and highlight key areas.",
+    zh: "ZH: 查看带注释的图表并突出重点区域。"
+  },
+  "assessment.question5.options.b": {
+    en: "Join a study-group discussion or use audio-recorded notes.",
+    ms: "MS: Join a study-group discussion or use audio-recorded notes.",
+    zh: "ZH: 参加学习小组讨论或使用录音笔记。"
+  },
+  "assessment.question5.options.c": {
+    en: "Rewrite your notes in your own words and review them.",
+    ms: "MS: Rewrite your notes in your own words and review them.",
+    zh: "ZH: 用自己的话重写笔记并复习。"
+  },
+  "assessment.question5.options.d": {
+    en: "Use practice kits, build models, or do sample problems by hand.",
+    ms: "MS: Use practice kits, build models, or do sample problems by hand.",
+    zh: "ZH: 使用练习工具包、制作模型或手动做例题。"
+  },
+  "assessment.question6.text": {
+    en: "When you need to clarify a tricky concept, you…",
+    ms: "MS: When you need to clarify a tricky concept, you…",
+    zh: "ZH: 当你需要理清一个棘手的概念时，你会…"
+  },
+  "assessment.question6.options.a": {
+    en: "Draw it out on paper or use a concept-map tool.",
+    ms: "MS: Draw it out on paper or use a concept-map tool.",
+    zh: "ZH: 在纸上画出来或使用概念图工具。"
+  },
+  "assessment.question6.options.b": {
+    en: "Call a friend and explain it to them verbally.",
+    ms: "MS: Call a friend and explain it to them verbally.",
+    zh: "ZH:打电话给朋友并口头向他们解释。"
+  },
+  "assessment.question6.options.c": {
+    en: "Look up multiple articles and take written notes.",
+    ms: "MS: Look up multiple articles and take written notes.",
+    zh: "ZH: 查阅多篇文章并做书面笔记。"
+  },
+  "assessment.question6.options.d": {
+    en: "Try to recreate the process yourself until it 'clicks'.",
+    ms: "MS: Try to recreate the process yourself until it 'clicks'.",
+    zh: "ZH: 尝试自己重现整个过程，直到理解为止。"
+  },
+  "assessment.question7.text": {
+    en: "Learning new procedures (e.g., software workflows) is easiest if you…",
+    ms: "MS: Learning new procedures (e.g., software workflows) is easiest if you…",
+    zh: "ZH: 如果你通过以下方式学习新流程（例如软件工作流程）会最容易…"
+  },
+  "assessment.question7.options.a": {
+    en: "Follow a step-by-step annotated screencast.",
+    ms: "MS: Follow a step-by-step annotated screencast.",
+    zh: "ZH: 跟随一个带注释的分步截屏视频。"
+  },
+  "assessment.question7.options.b": {
+    en: "Listen to someone narrate the steps as they go.",
+    ms: "MS: Listen to someone narrate the steps as they go.",
+    zh: "ZH: 听别人边操作边叙述步骤。"
+  },
+  "assessment.question7.options.c": {
+    en: "Read a written tutorial or manual.",
+    ms: "MS: Read a written tutorial or manual.",
+    zh: "ZH: 阅读书面教程或手册。"
+  },
+  "assessment.question7.options.d": {
+    en: "Open the software and learn by clicking around.",
+    ms: "MS: Open the software and learn by clicking around.",
+    zh: "ZH: 打开软件并通过实际操作来学习。"
+  },
+  "assessment.question8.text": {
+    en: "When reviewing lecture materials, you prefer…",
+    ms: "MS: When reviewing lecture materials, you prefer…",
+    zh: "ZH: 在复习讲座材料时，你更喜欢…"
+  },
+  "assessment.question8.options.a": {
+    en: "Slide-decks with visuals and embedded charts.",
+    ms: "MS: Slide-decks with visuals and embedded charts.",
+    zh: "ZH: 带有视觉效果和嵌入图表的幻灯片。"
+  },
+  "assessment.question8.options.b": {
+    en: "Audio recordings of the lecture to replay.",
+    ms: "MS: Audio recordings of the lecture to replay.",
+    zh: "ZH: 可供重播的讲座录音。"
+  },
+  "assessment.question8.options.c": {
+    en: "Lecture transcripts or detailed handouts.",
+    ms: "MS: Lecture transcripts or detailed handouts.",
+    zh: "ZH: 讲座的文字稿或详细讲义。"
+  },
+  "assessment.question8.options.d": {
+    en: "In-class activities or lab assignments to reinforce.",
+    ms: "MS: In-class activities or lab assignments to reinforce.",
+    zh: "ZH: 通过课堂活动或实验作业来巩固。"
+  },
+  "assessment.question9.text": {
+    en: "To master a foreign-language phrase, you would…",
+    ms: "MS: To master a foreign-language phrase, you would…",
+    zh: "ZH: 为了掌握一个外语短语，你会…"
+  },
+  "assessment.question9.options.a": {
+    en: "Watch a short video clip showing someone using it.",
+    ms: "MS: Watch a short video clip showing someone using it.",
+    zh: "ZH: 观看一个展示如何使用该短语的短视频片段。"
+  },
+  "assessment.question9.options.b": {
+    en: "Repeat it aloud and listen to a native speaker recording.",
+    ms: "MS: Repeat it aloud and listen to a native speaker recording.",
+    zh: "ZH: 大声重复并听母语者的录音。"
+  },
+  "assessment.question9.options.c": {
+    en: "Write it down multiple times and read it silently.",
+    ms: "MS: Write it down multiple times and read it silently.",
+    zh: "ZH: 多次写下来并默读。"
+  },
+  "assessment.question9.options.d": {
+    en: "Use it in a real-life conversation or role-play.",
+    ms: "MS: Use it in a real-life conversation or role-play.",
+    zh: "ZH: 在实际对话或角色扮演中使用它。"
+  },
+  "assessment.question10.text": {
+    en: "At the end of a study session, you feel most satisfied if you…",
+    ms: "MS: At the end of a study session, you feel most satisfied if you…",
+    zh: "ZH: 在学习结束时，如果你…你会感到最满意。"
+  },
+  "assessment.question10.options.a": {
+    en: "See a completed diagram or chart summarizing what you learned.",
+    ms: "MS: See a completed diagram or chart summarizing what you learned.",
+    zh: "ZH: 看到一个总结所学内容的完整图表。"
+  },
+  "assessment.question10.options.b": {
+    en: "Can verbally teach the concept back to someone.",
+    ms: "MS: Can verbally teach the concept back to someone.",
+    zh: "ZH: 能够口头向别人解释所学概念。"
+  },
+  "assessment.question10.options.c": {
+    en: "Have a neatly written set of notes and summaries.",
+    ms: "MS: Have a neatly written set of notes and summaries.",
+    zh: "ZH: 有一套整齐的书面笔记和摘要。"
+  },
+  "assessment.question10.options.d": {
+    en: "Have built something or completed a hands-on exercise.",
+    ms: "MS: Have built something or completed a hands-on exercise.",
+    zh: "ZH: 完成了某项制作或实践练习。"
+  },
+  "assessment.submitAnswers": {
+    en: "Submit Answers",
+    ms: "Hantar Jawapan",
+    zh: "提交答案"
+  },
+  "assessment.backToStudyPlan": {
+    en: "Back to Study Plan",
+    ms: "Kembali ke Pelan Pembelajaran",
+    zh: "返回学习计划"
+  },
+  "assessment.subTitle": {
+    en: "Your Learning Style Profile",
+    ms: "Profil Gaya Pembelajaran Anda",
+    zh: "您的学习风格画像"
+  },
+  "assessment.style.V": { en: "Visual", ms: "Visual", zh: "视觉型" },
+  "assessment.style.A": { en: "Auditory", ms: "Auditori", zh: "听觉型" },
+  "assessment.style.R": { en: "Reading/Writing", ms: "Membaca/Menulis", zh: "读写型" },
+  "assessment.style.K": { en: "Kinesthetic", ms: "Kinestetik", zh: "动觉型" },
+  "assessment.result.title": {
+    en: "Your Assessment Results",
+    ms: "MS: Your Assessment Results",
+    zh: "ZH: 您的评估结果"
+  },
+  "assessment.result.dominantStyleIs": {
+    en: "Your dominant learning style is",
+    ms: "MS: Your dominant learning style is",
+    zh: "ZH: 您的主导学习风格是"
+  },
+  "assessment.result.style.V": { 
+    en: "Visual", 
+    ms: "MS: Visual", 
+    zh: "ZH: 视觉型" 
+  },
+  "assessment.result.style.A": { 
+    en: "Auditory", 
+    ms: "MS: Auditory", 
+    zh: "ZH: 听觉型" 
+  },
+  "assessment.result.style.R": { 
+    en: "Reading/Writing", 
+    ms: "MS: Reading/Writing", 
+    zh: "ZH: 读写型" 
+  },
+  "assessment.result.style.K": { 
+    en: "Kinesthetic", 
+    ms: "MS: Kinesthetic", 
+    zh: "ZH: 动觉型" 
+  },
+  "assessment.result.multimodal": {
+    en: "Multimodal",
+    ms: "MS: Multimodal",
+    zh: "ZH: 多模式"
+  },
+  "assessment.result.noDominantStyle": {
+    en: "No single dominant style identified. You might be a versatile learner!",
+    ms: "MS: No single dominant style identified. You might be a versatile learner!",
+    zh: "ZH: 未识别出单一主导风格。您可能是个多面手学习者！"
+  },
+  "assessment.result.breakdown": {
+    en: "Score Breakdown",
+    ms: "MS: Score Breakdown",
+    zh: "ZH: 分数明细"
+  },
+  "assessment.result.explanation": {
+    en: "Understanding your learning style can help you tailor your study methods for better results. Visual learners prefer images, Auditory learners prefer sound, Reading/Writing learners prefer text, and Kinesthetic learners prefer hands-on activities.",
+    ms: "MS: Understanding your learning style can help you tailor your study methods for better results. Visual learners prefer images, Auditory learners prefer sound, Reading/Writing learners prefer text, and Kinesthetic learners prefer hands-on activities.",
+    zh: "ZH: 了解您的学习风格有助于您调整学习方法以获得更好的效果。视觉型学习者偏爱图像，听觉型学习者偏爱声音，读写型学习者偏爱文本，动觉型学习者偏爱动手实践。"
+  },
+  "assessment.retakeQuiz": {
+    en: "Retake Quiz",
+    ms: "MS: Retake Quiz",
+    zh: "ZH: 重新测验"
+  },
+  "assessment.continueToStudyPlan": {
+    en: "Continue to Study Plan",
+    ms: "MS: Continue to Study Plan",
+    zh: "ZH: 继续学习计划"
+  }
 };
 
 export default translations; 
