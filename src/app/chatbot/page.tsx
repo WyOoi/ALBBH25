@@ -252,17 +252,6 @@ export default function Chatbot() {
     }
   };
 
-  const handleDeepResearch = () => {
-    setMessage(prev => prev + ` (${t("chatbot.action.deep_research_suffix")})`);
-  };
-  
-  const actionButtons = [
-    { nameKey: "action.search", icon: "🔍", action: () => {} },
-    { nameKey: "action.reason", icon: "💭", action: () => {} },
-    { nameKey: "action.deep_research", icon: "🔬", action: handleDeepResearch },
-    { nameKey: "action.create_image", icon: "🖼️", action: () => {} },
-  ];
-
   // Format date for display
   const formatDate = (date: Date) => {
     const today = new Date();
@@ -613,19 +602,6 @@ export default function Chatbot() {
 
           {/* Message input area */}
           <div className="border-t border-white/10 p-4 bg-[#1e1e1e]">
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-                {actionButtons.map(btn => (
-                    <button 
-                        key={btn.nameKey}
-                        onClick={btn.action}
-                        title={t(btn.nameKey)}
-                        className="px-3 py-1.5 text-xs bg-[#2f2f2f] hover:bg-[#3f3f3f] rounded-md flex items-center gap-1.5 transition-colors"
-                    >
-                        <span>{btn.icon}</span>
-                        {t(btn.nameKey)}
-                    </button>
-                ))}
-            </div>
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
               <textarea
                 value={message}

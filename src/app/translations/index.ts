@@ -63,6 +63,11 @@ const translations: TranslationRecord = {
     ms: "Nota",
     zh: "笔记"
   },
+  "nav.study_plan": {
+    en: "Study Plan",
+    ms: "Pelan Belajar",
+    zh: "学习计划"
+  },
 
   // Hero section
   "hero.new_features": {
@@ -730,6 +735,103 @@ const translations: TranslationRecord = {
     en: "Enter desired PDF filename",
     ms: "Masukkan nama fail PDF yang diingini",
     zh: "输入所需的 PDF 文件名"
+  },
+
+  // Study Plan Page
+  "study_plan.title": {
+    en: "My Study Plan",
+    ms: "Pelan Belajar Saya",
+    zh: "我的学习计划"
+  },
+  "study_plan.subtitle": {
+    en: "Organize your learning, track progress, and discover personalized activities.",
+    ms: "Susun pembelajaran anda, jejak kemajuan, dan temui aktiviti yang diperibadikan.",
+    zh: "组织您的学习，跟踪进度，发现个性化活动。"
+  },
+  "study_plan.learning_profile_title": {
+    en: "Your Learning Profile",
+    ms: "Profil Pembelajaran Anda",
+    zh: "您的学习画像"
+  },
+  "study_plan.take_assessment_button": {
+    en: "Take Learning Style Assessment",
+    ms: "Ambil Penilaian Gaya Pembelajaran",
+    zh: "进行学习风格评估"
+  },
+  "study_plan.assessment_placeholder": {
+    en: "Complete the assessment to unlock your personalized learning style insights!",
+    ms: "Lengkapkan penilaian untuk membuka wawasan gaya pembelajaran peribadi anda!",
+    zh: "完成评估以解锁您的个性化学习风格洞察！"
+  },
+  "study_plan.todays_plan_title": {
+    en: "Today's Plan",
+    ms: "Pelan Hari Ini",
+    zh: "今日计划"
+  },
+  "study_plan.task.visual_example": {
+    en: "Watch: Concept Overview Video",
+    ms: "Tonton: Video Gambaran Keseluruhan Konsep",
+    zh: "观看：概念总览视频"
+  },
+  "study_plan.task.auditory_example": {
+    en: "Listen: Chapter Summary Podcast",
+    ms: "Dengar: Podcast Ringkasan Bab",
+    zh: "收听：章节摘要播客"
+  },
+  "study_plan.task.reading_writing_example": {
+    en: "Read: Article on Core Principles & Summarize",
+    ms: "Baca: Artikel mengenai Prinsip Teras & Ringkaskan",
+    zh: "阅读：核心原则文章并总结"
+  },
+  "study_plan.task.kinesthetic_example": {
+    en: "Do: Interactive Quiz - Module 1",
+    ms: "Lakukan: Kuiz Interaktif - Modul 1",
+    zh: "实践：模块1互动测验"
+  },
+  "study_plan.week_ahead_title": {
+    en: "Your Week Ahead",
+    ms: "Minggu Anda Yang Akan Datang",
+    zh: "未来一周安排"
+  },
+  "study_plan.style_balance_meter_title": {
+    en: "Style Balance Meter",
+    ms: "Meter Keseimbangan Gaya",
+    zh: "学习风格平衡表"
+  },
+  "study_plan.style_balance_placeholder": {
+    en: "Your learning style balance for the past week will be shown here.",
+    ms: "Baki gaya pembelajaran anda untuk minggu lalu akan ditunjukkan di sini.",
+    zh: "您过去一周的学习风格平衡将在此显示。"
+  },
+  "study_plan.generate_plan_title": {
+    en: "Generate & Customize Your Plan",
+    ms: "Jana & Suaikan Pelan Anda",
+    zh: "生成并定制您的计划"
+  },
+  "study_plan.goal_oriented_label": {
+    en: "I want to achieve a goal:",
+    ms: "Saya ingin mencapai matlamat:",
+    zh: "我想实现一个目标："
+  },
+  "study_plan.goal_placeholder": {
+    en: "e.g., Pass exam in 2 weeks, Master Topic X",
+    ms: "cth., Lulus peperiksaan dalam 2 minggu, Kuasai Topik X",
+    zh: "例如，2周内通过考试，掌握X主题"
+  },
+  "study_plan.time_budget_label": {
+    en: "My weekly study time budget:",
+    ms: "Bajet masa belajar mingguan saya:",
+    zh: "我的每周学习时间预算："
+  },
+  "study_plan.time_placeholder": {
+    en: "e.g., 10 hours",
+    ms: "cth., 10 jam",
+    zh: "例如，10小时"
+  },
+  "study_plan.generate_button": {
+    en: "Generate My Personalized Plan",
+    ms: "Jana Pelan Peribadi Saya",
+    zh: "生成我的个性化计划"
   }
 };
 
