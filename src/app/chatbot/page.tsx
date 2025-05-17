@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -18,6 +19,7 @@ interface ChatSession {
 }
 
 export default function Chatbot() {
+  const { t, language } = useLanguage();
   const [message, setMessage] = useState('');
   const [currentChatId, setCurrentChatId] = useState<string>('');
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
@@ -33,9 +35,9 @@ export default function Chatbot() {
     const newChatId = Date.now().toString();
     const newChat: ChatSession = {
       id: newChatId,
-      title: 'New Conversation',
+      title: t("chatbot.new_chat_title"),
       messages: [
-        { role: 'assistant', content: 'Hello! I\'m your Virtual Learning Assistant. How can I help you today?' }
+        { role: 'assistant', content: t("chatbot.greeting") }
       ],
       createdAt: new Date()
     };
@@ -55,6 +57,9 @@ export default function Chatbot() {
         // Convert string dates back to Date objects
         const formattedSessions = parsedSessions.map((session: any) => ({
           ...session,
+          messages: session.messages.map((msg: ChatMessage) => ({
+            ...msg,
+          })),
           createdAt: new Date(session.createdAt)
         }));
         
@@ -91,17 +96,17 @@ export default function Chatbot() {
   }, [currentChat?.messages]);
 
   // Update chat title based on first user message
-  const updateChatTitle = (message: string) => {
+  const updateChatTitle = (userMessageContent: string) => {
     if (!currentChatId) return;
     
-    const title = message.length > 30 
-      ? message.substring(0, 30) + '...' 
-      : message;
+    const newTitle = userMessageContent.length > 30 
+      ? userMessageContent.substring(0, 30) + '...' 
+      : userMessageContent;
     
     setChatSessions(prev => 
       prev.map(chat => 
-        chat.id === currentChatId 
-          ? { ...chat, title } 
+        chat.id === currentChatId && chat.title === t("chatbot.new_chat_title")
+          ? { ...chat, title: newTitle } 
           : chat
       )
     );
@@ -138,9 +143,7 @@ export default function Chatbot() {
     }
     
     // Format messages for API (exclude the first greeting from assistant for better context handling)
-    const apiMessages = currentChat.messages.length > 1 
-      ? currentChat.messages.slice(1).concat(userMessage)
-      : [userMessage];
+    const apiMessages = currentChat.messages.slice(1).concat(userMessage);
     
     try {
       // Call our API endpoint
@@ -157,7 +160,7 @@ export default function Chatbot() {
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to get response');
+        throw new Error(data.error || t("chatbot.error.api_fail"));
       }
       
       if (data.success) {
@@ -173,11 +176,12 @@ export default function Chatbot() {
           )
         );
       } else {
-        throw new Error('API returned unsuccessful response');
+        throw new Error(t("chatbot.error.api_unsuccessful"));
       }
     } catch (err: any) {
       console.error('Chat error:', err);
-      setError(err.message || "Something went wrong. Please try again.");
+      const errorMessage = err.message || t("chatbot.error.generic");
+      setError(errorMessage);
       
       // Add error message to chat
       setChatSessions(prev => 
@@ -187,7 +191,7 @@ export default function Chatbot() {
                 ...chat, 
                 messages: [...chat.messages, { 
                   role: 'assistant', 
-                  content: 'Sorry, I encountered an error. Please try again or check your connection.' 
+                  content: t("chatbot.error") 
                 }] 
               } 
             : chat
@@ -199,14 +203,14 @@ export default function Chatbot() {
   };
 
   const handleDeepResearch = () => {
-    setMessage(prev => prev + " (Please perform deep research on this topic)");
+    setMessage(prev => prev + ` (${t("chatbot.action.deep_research_suffix")})`);
   };
   
   const actionButtons = [
-    { name: "Search", icon: "🔍", action: () => {} },
-    { name: "Reason", icon: "💭", action: () => {} },
-    { name: "Deep research", icon: "🔬", action: handleDeepResearch },
-    { name: "Create image", icon: "🖼️", action: () => {} },
+    { nameKey: "action.search", icon: "🔍", action: () => {} },
+    { nameKey: "action.reason", icon: "💭", action: () => {} },
+    { nameKey: "action.deep_research", icon: "🔬", action: handleDeepResearch },
+    { nameKey: "action.create_image", icon: "🖼️", action: () => {} },
   ];
 
   // Format date for display
@@ -215,12 +219,14 @@ export default function Chatbot() {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
     
+    const currentLocale = language === 'zh' ? 'zh-CN' : language; 
+
     if (date.toDateString() === today.toDateString()) {
-      return 'Today';
+      return t("chatbot.today");
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday';
+      return t("chatbot.yesterday");
     } else {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return date.toLocaleDateString(currentLocale, { month: 'short', day: 'numeric' });
     }
   };
 
@@ -251,7 +257,7 @@ export default function Chatbot() {
                   <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .714-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
                 </svg>
               </span>
-              VTeach AI
+              {t("app.name")} AI
             </Link>
           </div>
           
@@ -300,7 +306,7 @@ export default function Chatbot() {
         {/* Main content */}
         <div className="flex-1 flex flex-col max-h-screen">
           <header className="border-b border-white/10 p-2 flex items-center justify-between">
-            <div className="text-sm hidden md:block">Virtual Learning Assistant</div>
+            <div className="text-sm hidden md:block">{t("app.name")} {t("chatbot.title_suffix")}</div>
             <div className="md:hidden flex-1 flex items-center justify-between">
               <button className="p-2 hover:bg-white/10 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -347,7 +353,11 @@ export default function Chatbot() {
                       {msg.role === 'user' ? 'U' : 'AI'}
                     </div>
                     <div>
-                      {msg.content}
+                      {msg.content.split('\n').map((line, i) => (
+                        <p key={i} className={line.startsWith('### ') ? 'text-lg font-semibold mt-2 mb-1' : line.startsWith('## ') ? 'text-xl font-bold mt-3 mb-1' : line.startsWith('# ') ? 'text-2xl font-extrabold mt-4 mb-2' : ''}>
+                          {line.replace(/^#+\s*/, '')}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -374,61 +384,52 @@ export default function Chatbot() {
             <div ref={messagesEndRef}></div>
           </div>
           
-          {/* Error message */}
+          {/* Error display */}
           {error && (
-            <div className="bg-red-900/50 border-l-4 border-red-500 p-4 mx-4 mb-4">
-              <div className="flex">
-                <div className="ml-3">
-                  <p className="text-sm text-red-200">
-                    {error}
-                  </p>
-                </div>
-              </div>
+            <div className="p-4 border-t border-red-500/30 bg-red-500/10 text-red-300 text-sm">
+              <strong>{t("chatbot.error_occurred")}:</strong> {error}
             </div>
           )}
-          
-          {/* Input form */}
-          <div className="border-t border-white/10 p-4 mx-4 mb-8">
-            <form onSubmit={handleSubmit} className="relative">
-              <div className="flex bg-[#343541] rounded-lg border border-white/10 p-1">
-                <div className="flex space-x-1 overflow-x-auto px-2 py-1 scrollbar-hide">
-                  {actionButtons.map((button) => (
-                    <button
-                      key={button.name}
-                      type="button"
-                      onClick={button.action}
-                      className="px-3 py-1.5 text-xs bg-[#444654] hover:bg-[#565869] rounded-md flex items-center whitespace-nowrap"
+
+          {/* Message input area */}
+          <div className="border-t border-white/10 p-4 bg-[#1e1e1e]">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+                {actionButtons.map(btn => (
+                    <button 
+                        key={btn.nameKey}
+                        onClick={btn.action}
+                        title={t(btn.nameKey)}
+                        className="px-3 py-1.5 text-xs bg-[#2f2f2f] hover:bg-[#3f3f3f] rounded-md flex items-center gap-1.5 transition-colors"
                     >
-                      <span className="mr-1">{button.icon}</span>
-                      {button.name}
+                        <span>{btn.icon}</span>
+                        {t(btn.nameKey)}
                     </button>
-                  ))}
-                </div>
-              </div>
-              
-              <div className="mt-2 flex relative">
-                <input
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Ask anything..."
-                  className="flex-1 bg-[#343541] rounded-lg border border-white/10 p-4 pr-12 focus:outline-none focus:border-white/30 text-white placeholder-gray-400"
-                />
-                <button
-                  type="submit"
-                  disabled={message.trim() === '' || isTyping || !currentChat}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                  </svg>
-                </button>
-              </div>
-              
-              <p className="text-xs text-center text-gray-500 mt-2">
-                Powered by Qwen-Max. VTeach AI may produce inaccurate information about people, places, or facts.
-              </p>
+                ))}
+            </div>
+            <form onSubmit={handleSubmit} className="flex items-center gap-2">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e as any); // Type assertion needed for form event
+                  }
+                }}
+                placeholder={t("chatbot.placeholder")} 
+                className="flex-1 bg-[#2f2f2f] border border-transparent focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-lg px-4 py-3 text-sm text-gray-200 resize-none focus:outline-none scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent" 
+                rows={1} 
+              />
+              <button 
+                type="submit" 
+                disabled={isTyping || message.trim() === ''}
+                className="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-5 py-3 rounded-lg focus:outline-none transition-colors h-full"
+                style={{maxHeight: '46px'}} // Ensure button height matches textarea
+              >
+                {isTyping ? t("chatbot.sending") : t("chatbot.send")}
+              </button>
             </form>
+            <p className="text-xs text-gray-500 mt-3 text-center">{t("chatbot.disclaimer")}</p>
           </div>
         </div>
       </div>

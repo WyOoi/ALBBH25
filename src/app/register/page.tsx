@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Register() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,32 +21,21 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     if (password !== confirmPassword) {
-      setError("Passwords don't match");
+      setError(t("auth.error.password_mismatch"));
       return;
     }
-
     if (password.length < 6) {
-      setError("Password must be at least 6 characters long");
+      setError(t("auth.error.password_too_short"));
       return;
     }
-
     setLoading(true);
-
-    // Simulate registration process
     try {
-      // In a real app, you would call your registration API here
       console.log("Registering with:", { name, email, password });
-      
-      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, consider any registration successful
-      // In a real app, you would handle the response and proper account creation
       router.push("/dashboard");
     } catch (err) {
-      setError("Failed to create account. Please try again.");
+      setError(t("auth.error.registration_failed"));
       console.error(err);
     } finally {
       setLoading(false);
@@ -57,12 +48,12 @@ export default function Register() {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Create a new account
+            {t("auth.register")}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{" "}
+            {t("auth.or")}{" "}
             <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-              sign in to your existing account
+              {t("auth.login_link")}
             </Link>
           </p>
         </div>
@@ -80,7 +71,7 @@ export default function Register() {
               
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full name
+                  {t("auth.fullname")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -91,6 +82,7 @@ export default function Register() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder={t("auth.fullname.placeholder")}
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -98,7 +90,7 @@ export default function Register() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
+                  {t("auth.email")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -109,6 +101,7 @@ export default function Register() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder={t("auth.email.placeholder")}
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -116,7 +109,7 @@ export default function Register() {
 
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
+                  {t("auth.password")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -127,6 +120,7 @@ export default function Register() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder={t("auth.password.placeholder_new")}
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -134,7 +128,7 @@ export default function Register() {
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                  Confirm password
+                  {t("auth.confirm_password")}
                 </label>
                 <div className="mt-1">
                   <input
@@ -145,6 +139,7 @@ export default function Register() {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder={t("auth.confirm_password.placeholder")}
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -159,13 +154,13 @@ export default function Register() {
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-                  I agree to the{" "}
+                  {t("auth.agree_terms")}{" "}
                   <Link href="/terms" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Terms of Service
+                    {t("auth.terms")}
                   </Link>{" "}
-                  and{" "}
+                  {t("auth.and")}{" "}
                   <Link href="/privacy" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Privacy Policy
+                    {t("auth.privacy")}
                   </Link>
                 </label>
               </div>
@@ -176,7 +171,7 @@ export default function Register() {
                   disabled={loading}
                   className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75"
                 >
-                  {loading ? "Creating account..." : "Create account"}
+                  {loading ? t("auth.creating_account") : t("auth.create_account")}
                 </button>
               </div>
             </form>
