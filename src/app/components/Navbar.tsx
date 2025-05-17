@@ -40,9 +40,9 @@ export default function Navbar() {
 
   // Language options
   const languageOptions = [
-    { code: 'en', label: 'GB', name: 'English' },
-    { code: 'ms', label: 'MY', name: 'Bahasa Melayu' },
-    { code: 'zh', label: 'CN', name: '中文' }
+    { code: 'en', label: 'GB', name: t("language.option.english") },
+    { code: 'ms', label: 'MY', name: t("language.option.malay") },
+    { code: 'zh', label: 'CN', name: t("language.option.chinese") }
   ];
 
   const currentLanguage = languageOptions.find(option => option.code === language);
@@ -53,23 +53,26 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-indigo-600 font-bold text-xl">VTeach</span>
+              <span className="text-indigo-600 font-bold text-xl">{t("app.name.short")}</span>
             </Link>
           </div>
           
           {/* Desktop menu */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
             <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
-              Dashboard
+              {t("nav.dashboard")}
             </Link>
             <Link href="/chatbot" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
-              Chatbot
+              {t("nav.chatbot")}
+            </Link>
+            <Link href="/note" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
+              {t("nav.note")}
             </Link>
             <Link href="/login" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">
-              Login
+              {t("nav.login")}
             </Link>
             <Link href="/register" className="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 text-sm font-medium rounded-md">
-              Register
+              {t("nav.register")}
             </Link>
             
             {/* Language selector - desktop */}
@@ -137,7 +140,7 @@ export default function Navbar() {
               aria-expanded="false"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{t("nav.open_main_menu")}</span>
               {!mobileMenuOpen ? (
                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -157,16 +160,19 @@ export default function Navbar() {
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
             <Link href="/dashboard" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
-              Dashboard
+              {t("nav.dashboard")}
             </Link>
             <Link href="/chatbot" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
-              Chatbot
+              {t("nav.chatbot")}
+            </Link>
+            <Link href="/note" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
+              {t("nav.note")}
             </Link>
             <Link href="/login" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-indigo-400 hover:text-indigo-700">
-              Login
+              {t("nav.login")}
             </Link>
             <Link href="/register" className="block pl-3 pr-4 py-2 border-l-4 border-indigo-600 text-indigo-700 bg-indigo-50">
-              Register
+              {t("nav.register")}
             </Link>
           </div>
         </div>
