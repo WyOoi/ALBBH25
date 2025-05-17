@@ -16,6 +16,11 @@ const translations: TranslationRecord = {
     ms: "Rakan AI anda untuk pembelajaran berkesan",
     zh: "您的AI驱动学习伙伴，提供高效学习体验"
   },
+  "app.name.short": {
+    en: "VTeach",
+    ms: "VTeach",
+    zh: "VTeach"
+  },
 
   // Navigation
   "nav.home": {
@@ -47,6 +52,16 @@ const translations: TranslationRecord = {
     en: "Go to Homepage",
     ms: "Ke Halaman Utama",
     zh: "返回首页"
+  },
+  "nav.open_main_menu": {
+    en: "Open main menu",
+    ms: "Buka menu utama",
+    zh: "打开主菜单"
+  },
+  "nav.note": {
+    en: "Notes",
+    ms: "Nota",
+    zh: "笔记"
   },
 
   // Hero section
@@ -540,6 +555,21 @@ const translations: TranslationRecord = {
     ms: "Bahasa Cina",
     zh: "中文"
   },
+  "language.option.english": {
+    en: "English",
+    ms: "English",
+    zh: "English"
+  },
+  "language.option.malay": {
+    en: "Bahasa Melayu",
+    ms: "Bahasa Melayu",
+    zh: "Bahasa Melayu"
+  },
+  "language.option.chinese": {
+    en: "中文",
+    ms: "中文",
+    zh: "中文"
+  },
 
   // Footer
   "footer.terms": {
@@ -589,6 +619,118 @@ const translations: TranslationRecord = {
     ms: "Cipta imej",
     zh: "创建图像"
   },
+
+  // Note Page
+  "note.title": {
+    en: "My Notes & OCR",
+    ms: "Nota Saya & OCR",
+    zh: "我的笔记和OCR"
+  },
+  "note.subtitle": {
+    en: "Extract text from images and keep your notes organized.",
+    ms: "Ekstrak teks daripada imej dan susun nota anda.",
+    zh: "从图像中提取文本并整理您的笔记。"
+  },
+  "note.ocr_section_title": {
+    en: "Image OCR",
+    ms: "OCR Imej",
+    zh: "图像OCR"
+  },
+  "note.upload_label": {
+    en: "Upload an image to extract text",
+    ms: "Muat naik imej untuk ekstrak teks",
+    zh: "上传图片以提取文本"
+  },
+  "note.selected_image": {
+    en: "Selected image",
+    ms: "Imej dipilih",
+    zh: "已选图片"
+  },
+  "note.image_preview_alt": {
+    en: "Image preview",
+    ms: "Pratonton imej",
+    zh: "图片预览"
+  },
+  "note.button_extract_text": {
+    en: "Extract Text",
+    ms: "Ekstrak Teks",
+    zh: "提取文本"
+  },
+  "note.loading_ocr": {
+    en: "Extracting text...",
+    ms: "Mengekstrak teks...",
+    zh: "正在提取文本..."
+  },
+  "note.extracted_text_title": {
+    en: "Extracted Text",
+    ms: "Teks Diekstrak",
+    zh: "提取的文本"
+  },
+  "note.notes_section_title": {
+    en: "My Notes",
+    ms: "Nota Saya",
+    zh: "我的笔记"
+  },
+  "note.placeholder_notes": {
+    en: "Write your notes here...",
+    ms: "Tulis nota anda di sini...",
+    zh: "在此处写下您的笔记..."
+  },
+  "note.button_save_note": {
+    en: "Save Note",
+    ms: "Simpan Nota",
+    zh: "保存笔记"
+  },
+  "note.error.no_image": {
+    en: "Please select an image first.",
+    ms: "Sila pilih imej dahulu.",
+    zh: "请先选择一张图片。"
+  },
+  "note.error.ocr_failed": {
+    en: "Failed to extract text from image. Please try again.",
+    ms: "Gagal mengekstrak teks daripada imej. Sila cuba lagi.",
+    zh: "无法从图像中提取文本。请重试。"
+  },
+  "note.ocr.mock_result_placeholder": {
+    en: "Extracted text from {fileName} will appear here.",
+    ms: "Teks yang diekstrak daripada {fileName} akan muncul di sini.",
+    zh: "从 {fileName} 提取的文本将显示在此处。"
+  },
+  "note.save_success": {
+    en: "Note saved successfully! (Logged to console for demo)",
+    ms: "Nota berjaya disimpan! (Dicatat ke konsol untuk demo)",
+    zh: "笔记保存成功！（已记录到控制台用于演示）"
+  },
+  "note.button_download_pdf": {
+    en: "Download as PDF",
+    ms: "Muat Turun sebagai PDF",
+    zh: "下载为PDF"
+  },
+  "note.downloading_pdf": {
+    en: "Downloading PDF...",
+    ms: "Memuat turun PDF...",
+    zh: "正在下载PDF..."
+  },
+  "note.error.pdf_generation_failed": {
+    en: "Failed to generate PDF. Please try again.",
+    ms: "Gagal menjana PDF. Sila cuba lagi.",
+    zh: "生成PDF失败。请重试。"
+  },
+  "note.error.no_text_to_download": {
+    en: "There is no extracted text to download.",
+    ms: "Tiada teks yang diekstrak untuk dimuat turun.",
+    zh: "没有提取的文本可供下载。"
+  },
+  "note.pdf_filename_label": {
+    en: "PDF Filename:",
+    ms: "Nama Fail PDF:",
+    zh: "PDF 文件名："
+  },
+  "note.pdf_filename_placeholder": {
+    en: "Enter desired PDF filename",
+    ms: "Masukkan nama fail PDF yang diingini",
+    zh: "输入所需的 PDF 文件名"
+  }
 };
 
 export default translations; 
