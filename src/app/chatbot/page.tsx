@@ -16,6 +16,13 @@ interface ChatSession {
   title: string;
   messages: ChatMessage[];
   createdAt: Date;
+  folderId: string | null;
+}
+
+interface ChatFolder {
+  id: string;
+  name: string;
+  createdAt: Date;
 }
 
 export default function Chatbot() {
@@ -23,15 +30,57 @@ export default function Chatbot() {
   const [message, setMessage] = useState('');
   const [currentChatId, setCurrentChatId] = useState<string>('');
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
+  const [folders, setFolders] = useState<ChatFolder[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState("");
+  const [isCreatingFolder, setIsCreatingFolder] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [showMoveMenu, setShowMoveMenu] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // Get the current chat session
   const currentChat = chatSessions.find(chat => chat.id === currentChatId);
 
-  // Create a new chat session
-  const createNewChat = () => {
+  // Create a new folder
+  const createNewFolder = () => {
+    if (!newFolderName.trim()) return;
+    
+    const newFolder: ChatFolder = {
+      id: Date.now().toString(),
+      name: newFolderName.trim(),
+      createdAt: new Date()
+    };
+    
+    setFolders(prev => [...prev, newFolder]);
+    setNewFolderName('');
+    setIsCreatingFolder(false);
+  };
+
+  // Initialize folders from localStorage
+  useEffect(() => {
+    const storedFolders = localStorage.getItem('chatFolders');
+    if (storedFolders) {
+      try {
+        const parsedFolders = JSON.parse(storedFolders);
+        setFolders(parsedFolders.map((folder: any) => ({
+          ...folder,
+          createdAt: new Date(folder.createdAt)
+        })));
+      } catch (err) {
+        console.error('Error parsing stored folders:', err);
+      }
+    }
+  }, []);
+
+  // Save folders to localStorage whenever they change
+  useEffect(() => {
+    if (folders.length > 0) {
+      localStorage.setItem('chatFolders', JSON.stringify(folders));
+    }
+  }, [folders]);
+
+  // Update the createNewChat function to include folderId
+  const createNewChat = (folderId?: string) => {
     const newChatId = Date.now().toString();
     const newChat: ChatSession = {
       id: newChatId,
@@ -39,7 +88,8 @@ export default function Chatbot() {
       messages: [
         { role: 'assistant', content: t("chatbot.greeting") }
       ],
-      createdAt: new Date()
+      createdAt: new Date(),
+      folderId: folderId || null
     };
 
     setChatSessions(prev => [newChat, ...prev]);
@@ -245,6 +295,18 @@ export default function Chatbot() {
     setCurrentChatId(chatId);
   };
 
+  // Add move chat function
+  const moveChatToFolder = (chatId: string, folderId: string | null) => {
+    setChatSessions(prev => 
+      prev.map(chat => 
+        chat.id === chatId 
+          ? { ...chat, folderId } 
+          : chat
+      )
+    );
+    setShowMoveMenu(null);
+  };
+
   return (
     <div className="min-h-screen bg-[#1e1e1e] text-white">
       <div className="flex h-screen">
@@ -269,37 +331,195 @@ export default function Chatbot() {
           </Link>
           
           <button 
-            onClick={createNewChat}
-            className="w-full border border-white/20 rounded-md p-3 text-sm flex items-center gap-3 hover:bg-white/10 transition-colors"
+            onClick={() => createNewChat()}
+            className="w-full border border-white/20 rounded-md p-3 text-sm flex items-center gap-3 hover:bg-white/10 transition-colors mb-2"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             New chat
           </button>
+
+          <button 
+            onClick={() => setIsCreatingFolder(true)}
+            className="w-full border border-white/20 rounded-md p-3 text-sm flex items-center gap-3 hover:bg-white/10 transition-colors mb-4"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+            </svg>
+            New folder
+          </button>
+
+          {isCreatingFolder && (
+            <div className="mb-4 p-2 border border-white/20 rounded-md">
+              <input
+                type="text"
+                value={newFolderName}
+                onChange={(e) => setNewFolderName(e.target.value)}
+                placeholder="Folder name"
+                className="w-full bg-[#2f2f2f] border border-white/20 rounded-md px-3 py-2 text-sm mb-2"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    createNewFolder();
+                  }
+                }}
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={createNewFolder}
+                  className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1.5 rounded-md text-sm"
+                >
+                  Create
+                </button>
+                <button
+                  onClick={() => {
+                    setIsCreatingFolder(false);
+                    setNewFolderName('');
+                  }}
+                  className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-3 py-1.5 rounded-md text-sm"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
           
-          <div className="mt-8 h-[calc(100vh-220px)] overflow-y-auto">
-            {Object.entries(groupedChats).map(([date, chats]) => (
-              <div key={date} className="mb-4">
-                <div className="text-xs text-gray-400 mb-2">{date}</div>
-                {chats.map(chat => (
+          <div className="mt-8 h-[calc(100vh-280px)] overflow-y-auto">
+            {folders.map(folder => (
+              <div key={folder.id} className="mb-4">
+                <div className="text-xs text-gray-400 mb-2 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                  </svg>
+                  {folder.name}
+                </div>
+                {chatSessions
+                  .filter(chat => chat.folderId === folder.id)
+                  .map(chat => (
+                    <div 
+                      key={chat.id} 
+                      className={`text-sm cursor-pointer p-2 rounded mb-1 flex items-center justify-between group ${
+                        chat.id === currentChatId 
+                          ? 'bg-[#343541] text-white' 
+                          : 'hover:bg-white/10 text-gray-300'
+                      } transition-colors`}
+                    >
+                      <div 
+                        onClick={() => switchChat(chat.id)}
+                        className="flex items-center gap-2 flex-1 truncate"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                        </svg>
+                        <span className="truncate">{chat.title}</span>
+                      </div>
+                      <div className="relative">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowMoveMenu(showMoveMenu === chat.id ? null : chat.id);
+                          }}
+                          className="p-1 hover:bg-white/10 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                          </svg>
+                        </button>
+                        {showMoveMenu === chat.id && (
+                          <div 
+                            className="absolute right-0 mt-1 w-48 bg-[#2f2f2f] rounded-md shadow-lg z-10 border border-white/10"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div className="py-1">
+                              <div className="px-3 py-2 text-xs text-gray-400">Move to folder</div>
+                              <button
+                                onClick={() => moveChatToFolder(chat.id, null)}
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-white/10"
+                              >
+                                Unorganized
+                              </button>
+                              {folders.map(folder => (
+                                <button
+                                  key={folder.id}
+                                  onClick={() => moveChatToFolder(chat.id, folder.id)}
+                                  className="w-full text-left px-3 py-2 text-sm hover:bg-white/10"
+                                >
+                                  {folder.name}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            ))}
+            
+            {/* Unorganized chats */}
+            <div className="mb-4">
+              <div className="text-xs text-gray-400 mb-2">Unorganized</div>
+              {chatSessions
+                .filter(chat => !chat.folderId)
+                .map(chat => (
                   <div 
                     key={chat.id} 
-                    onClick={() => switchChat(chat.id)}
-                    className={`text-sm cursor-pointer p-2 rounded mb-1 flex items-center gap-2 ${
+                    className={`text-sm cursor-pointer p-2 rounded mb-1 flex items-center justify-between group ${
                       chat.id === currentChatId 
                         ? 'bg-[#343541] text-white' 
                         : 'hover:bg-white/10 text-gray-300'
-                    } transition-colors truncate`}
+                    } transition-colors`}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                    </svg>
-                    <span className="truncate">{chat.title}</span>
+                    <div 
+                      onClick={() => switchChat(chat.id)}
+                      className="flex items-center gap-2 flex-1 truncate"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex-shrink-0">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                      </svg>
+                      <span className="truncate">{chat.title}</span>
+                    </div>
+                    <div className="relative">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowMoveMenu(showMoveMenu === chat.id ? null : chat.id);
+                        }}
+                        className="p-1 hover:bg-white/10 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                        </svg>
+                      </button>
+                      {showMoveMenu === chat.id && (
+                        <div 
+                          className="absolute right-0 mt-1 w-48 bg-[#2f2f2f] rounded-md shadow-lg z-10 border border-white/10"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="py-1">
+                            <div className="px-3 py-2 text-xs text-gray-400">Move to folder</div>
+                            <button
+                              onClick={() => moveChatToFolder(chat.id, null)}
+                              className="w-full text-left px-3 py-2 text-sm hover:bg-white/10"
+                            >
+                              Unorganized
+                            </button>
+                            {folders.map(folder => (
+                              <button
+                                key={folder.id}
+                                onClick={() => moveChatToFolder(chat.id, folder.id)}
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-white/10"
+                              >
+                                {folder.name}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
-              </div>
-            ))}
+            </div>
           </div>
         </div>
         
@@ -315,7 +535,7 @@ export default function Chatbot() {
               </button>
               <div className="flex items-center gap-3">
                 <button
-                  onClick={createNewChat}
+                  onClick={() => createNewChat()}
                   className="p-2 hover:bg-white/10 rounded-md"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
