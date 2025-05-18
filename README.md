@@ -1,4 +1,4 @@
-# 🎓 VLA: Your AI-Powered Virtual Learning Companion 🚀
+# 🎓 VLA:Your AI-Powered Virtual Learning Companion 🚀
 
 Welcome to VLA, the next-generation Virtual Learning Assistant that transforms your study routine into an engaging, personalized journey. Built with cutting-edge AI technologies—including the Qwen-Max chatbot, multimodal OCR, and multilingual support—VTeach adapts to your learning style and needs.
 
