@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Virtual Learning Assistant",
+  title: "Virtual Learning System",
   description: "Your AI-powered companion for effective learning",
 };
 

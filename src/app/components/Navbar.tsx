@@ -40,7 +40,7 @@ export default function Navbar() {
 
   // Language options
   const languageOptions = [
-    { code: 'en', label: 'GB', name: t("language.option.english") },
+    { code: 'en', label: 'EN', name: t("language.option.english") },
     { code: 'ms', label: 'MY', name: t("language.option.malay") },
     { code: 'zh', label: 'CN', name: t("language.option.chinese") }
   ];

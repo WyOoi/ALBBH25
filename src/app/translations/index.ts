@@ -7,9 +7,9 @@ type TranslationRecord = Record<string, Record<Language, string>>;
 const translations: TranslationRecord = {
   // Common
   "app.name": {
-    en: "Virtual Learning Assistant",
-    ms: "Pembantu Pembelajaran Maya",
-    zh: "虚拟学习助手"
+    en: "Virtual Learning System",
+    ms: "Sistem Pembelajaran Maya",
+    zh: "虚拟学习系统"
   },
   "app.tagline": {
     en: "Your AI-powered companion for effective learning",
@@ -17,9 +17,9 @@ const translations: TranslationRecord = {
     zh: "您的AI驱动学习伙伴，提供高效学习体验"
   },
   "app.name.short": {
-    en: "VTeach",
-    ms: "VTeach",
-    zh: "VTeach"
+    en: "VLS",
+    ms: "VLS",
+    zh: "VLS"
   },
 
   // Navigation
